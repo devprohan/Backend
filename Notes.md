@@ -1,3 +1,9 @@
+# Latest Concepts :-
+
+- In Node js process.exit ()
+1. Gracefully stopping on success = process.exit(0)
+2. Exiting on error = process.exit(1)
+
 # Files :-
 
 1. Index
@@ -73,24 +79,30 @@
 
 - It is tool used for create usefull .gitignore files for your project
 
-## Create an .env file 
+## Create an .env file
+
 - To keep secrets
 
 ## Create an Source Folder
+
 - Under that create app.js, constants.js, index.js filess
 - Source Folder Use to organize files
 
 ## Install Nodemon : -D
+
 - It is in devDependancy which not be used in development of your project, not in production.
 
 ## Install Prettier : -D
-- It also devdependancy 
+
+- It also devdependancy
 - It used to Auto-format your code
 
 ## prettierignore :-
+
 - file ignore env, vs code settings as well node_modules
 
 ## Database Connection :-
+
 - Using MongoDB Atlas
 - Always allow Network Access means Ip
 - database Acces me username dikhta he
@@ -98,9 +110,33 @@
 - Go to Drivers or Campass you got string copy it
 - paste it into env mongodb_uri
 - Hamesha DB try catch me Block karo good practice
-- DB is always in another Continent so use async await because time lgta he 
+- DB is always in another Continent so use async await because time lgta he
+- DB ka name constant me save kre aur use db.js file me add kre while connecting database
+
+### Debugging DB :-
+
+1. Check env file username and password
+2. Check import .js is imp
+3. check code and export
 
 ## Requirements:
+
 1. dotenv
 2. mongoose
 3. Express
+4. cookieparser
+5. Cors
+
+## Express:-
+- req.params :- url se data lena h to
+- req.body :- frontend se data lena  h to
+- req.cookies :- cookies se data lena h to
+
+## Middelwares:-
+- parse :- parse means convert data into useable structure
+- Middleware in Express.js is a function that has access to the request, response
+- In simple word its checking between request and response
+- app.use matlab middelware
+- Cookieparser :-  is to make it easy to read and manage cookies in an Express.js
+- urlencoded :- It parse form data means it parse incoming request by post request
+- express.static :- It allows Express to serve those files directly as it is
