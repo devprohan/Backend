@@ -22,7 +22,7 @@
 4. Install Express
 5. Create Express Server
 6. Install DotEnv : For Sensitive Data Store
-7. Import Then env.config() Then We Can Use Info in the env file by Process.env 
+7. Import Then env.config() Then We Can Use Info in the env file by Process.env
 8. In case of import type is module
 
 # Deploy Notes:
@@ -51,12 +51,42 @@
 - Subtodos ko todos ke andar refer hamesha array me krna best use practice
 - Images Hamesha URL me store hote hai url as a string so we use cloudnary site use to convert image into url
 - Enum is used to restrict a field to a set of predefined values. which is in array
+
 # Boiler Plate code :-
+
                         import mongoose from 'mongoose';
                         const subTodoSchema = new mongoose.Schema({}, { timestamps: true });
                         export const SubTodo = mongoose.model('SubTodo', subTodoSchema);
 
-
 ## Tools:
 
 - stackblitz, codesandbox, github codespaces:- it creates an environment which we want : installation ki grj nh
+
+# Setup of Professional Backend Project:-
+
+## Create Public folder:
+
+- under that create an temp folder
+- under that create gitkeep file
+
+## Git Ignore file generator:
+
+- It is tool used for create usefull .gitignore files for your project
+
+## Create an .env file 
+- To keep secrets
+
+## Create an Source Folder
+- Under that create app.js, constants.js, index.js filess
+- Source Folder Use to organize files
+
+## Install Nodemon : -D
+- It is in devDependancy which not be used in development of your project, not in production.
+
+## Install Prettier : -D
+- It also devdependancy 
+- It used to Auto-format your code
+
+## prettierignore :-
+- file ignore env, vs code settings as well node_modules
+
