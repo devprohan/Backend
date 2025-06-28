@@ -90,3 +90,17 @@
 ## prettierignore :-
 - file ignore env, vs code settings as well node_modules
 
+## Database Connection :-
+- Using MongoDB Atlas
+- Always allow Network Access means Ip
+- database Acces me username dikhta he
+- Then move to Clusters and tap connect
+- Go to Drivers or Campass you got string copy it
+- paste it into env mongodb_uri
+- Hamesha DB try catch me Block karo good practice
+- DB is always in another Continent so use async await because time lgta he 
+
+## Requirements:
+1. dotenv
+2. mongoose
+3. Express
