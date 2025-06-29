@@ -140,6 +140,7 @@
 6. mongoose-aggregate-paginate-v2
 7. bcryptjs
 8. jwt
+9. cloudinary
 
 ## Express:-
 
@@ -195,13 +196,14 @@
 - REFRESH TOKEN :- A Refresh Token is a special kind of JWT that lets the user stay logged in after the access token expires, without forcing them to log in again.
 
 # Boiler Plate :-
+
                  userSchema.methods.generateAccessToken = function () {
                     return jwt.sign(
                         {
                         _id: this._id,
                         email: this.email,
                         username: this.username,
-                        }, 
+                        },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
                         expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
@@ -220,3 +222,34 @@
 ### Payload : It Contains data about user and issued and expired timestamp
 
 ### Signature : It has Secret Key
+
+# File Upload Or Handeling:-
+
+## Step-by-Step Flow:-
+
+- User uploads a file (image/pdf/video) from frontend.
+- Use Multer to store it temporarily
+- File is sent to your Node.js backend.
+- Backend uses Cloudinary SDK to upload the file to Cloudinary.
+- Cloudinary returns a URL, which is stored in MongoDB.
+- You serve that URL to the frontend to display the image.
+
+- Here We Use Cloudinary Site For Uploading and Handeling Files
+- We also use Multer or express.js file upload packages
+- Cloudinary ham Utilities me rakhte hai
+- In cloudinary think alredy the file is in local server hame bs ise path deke cloudinary pe upload krna he uske baad cloudinary use aws ya upr server upload krega
+
+## Steps :-
+
+- import cloudinary and fs
+- env me clodinary name , API key, API secret store krde
+- then cloudinary config ({ process.env}) krke info fill up krdo
+- then uploadonCloudinary name ka func banao usme phle check kro ki localpath hai ya nh then he to cloudinary.uploder.upload lagake usme url daldo aur resourse type : auto krdo aur succefull msg print krdo
+- async await aur try catch lgado in sabko response me store krdo
+- In catch section : error ane pr bh file to bnti h isliye fs.unlink krne ka
+
+## Multer :-
+- It is a middleware part
+- Use of multer is to parse files qki express me ye nh file parse nh hota
+
+ 
