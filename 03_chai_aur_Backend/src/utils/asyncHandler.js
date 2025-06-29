@@ -11,7 +11,7 @@ const asyncHandler = (requestHandler) => {
 export { asyncHandler };
 
 
-// const asynchandler = (func) => {() => {}} only braces remove
+// const asynchandler = (func) => {() => {}} only braces remove It Is an Higher Order Function
 /*
       By Using Try-Catch
 const asyncHandler = (fn) => async (req, res, next) => {

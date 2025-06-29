@@ -1,8 +1,11 @@
 # Latest Concepts :-
 
 - In Node js process.exit ()
+
 1. Gracefully stopping on success = process.exit(0)
 2. Exiting on error = process.exit(1)
+
+- mongoose aggregate package is used for write aggregation queries
 
 # Files :-
 
@@ -90,7 +93,7 @@
 
 ## Install Nodemon : -D
 
-- It is in devDependancy which not be used in development of your project, not in production.
+- It is in devDependancy which used in development of your project, not in production.
 
 ## Install Prettier : -D
 
@@ -113,6 +116,14 @@
 - DB is always in another Continent so use async await because time lgta he
 - DB ka name constant me save kre aur use db.js file me add kre while connecting database
 
+## Mongoose :-
+
+- Mongoose-aggregate-paginate-v2 package is used to write aggreagte queries in models
+- It use with Schema like schema.plugin(m-a-p) then we write queries
+- Mongoose allows us to write some middelware such as pre post it used to before saving and after saving data
+- use of pre and post hook Schema.pre or post ("events", callback async func(next){LOGIC next()})
+- Here callback me hamesha normal func use krna because arrow ke pass this ka reference nh hota
+
 ### Debugging DB :-
 
 1. Check env file username and password
@@ -126,17 +137,86 @@
 3. Express
 4. cookieparser
 5. Cors
+6. mongoose-aggregate-paginate-v2
+7. bcryptjs
+8. jwt
 
 ## Express:-
+
 - req.params :- url se data lena h to
-- req.body :- frontend se data lena  h to
+- req.body :- frontend se data lena h to
 - req.cookies :- cookies se data lena h to
 
 ## Middelwares:-
+
 - parse :- parse means convert data into useable structure
 - Middleware in Express.js is a function that has access to the request, response
 - In simple word its checking between request and response
 - app.use matlab middelware
-- Cookieparser :-  is to make it easy to read and manage cookies in an Express.js
+- Cookieparser :- is to make it easy to read and manage cookies in an Express.js
 - urlencoded :- It parse form data means it parse incoming request by post request
 - express.static :- It allows Express to serve those files directly as it is
+
+## app.js Folder :-
+
+- Isme humne express app create kiya hai aur use export kiya hai
+- and We add some middelwares inside it like cookieparsrer, cors, express static, urlencoded, json, etc
+
+## Index.js Folder :-
+
+- Isme humne DB Import krke connect kr rkha hai aur env file add krkr rkha he
+
+## Error Handeling :-
+
+- humne error handel krne ke liye utilities create kiya hai
+- asyncHandeler me handeler function ke errors handel honge
+- ApiHandeler me Api req ke errors handel honge
+- ApiResHandeler me Api res ke errors handel honge
+
+## bcryptjs or bcrypt :-
+
+- Install bcrypt.js
+- A library helps to hashed your Password
+- eg.mySecret123 converted into $2a$10$gWUvR8b2z9XBqp6lBQcBze4mC. This string stored in DB
+- It used before storing pass in db so use pre middeleware
+- this.password = bcrypt.hash(this.password, 10)
+- har baar check kro ki password modified h ya nh nh to hr baar password save hoga
+- After bcrypt password check password is correct or not by using bcrypt.compare which gives jo user dega wo password or dusra jo bcrypt ne save kiya
+- it takes time so use await and return
+
+## JWT :-
+
+- Install Jwt json web token
+- JWT is secure way to transmit data between two parties
+- A JWT has 3 parts, separated by dots (.)
+- A jwt is bearer type of token jo bh bhejega use data bhej dega
+- In env file Access_Token_Secret = get from secret key genrator in google
+- In env file Access_Token_Expiry = 1d, 1hr
+- REFRESH TOKEN :- A Refresh Token is a special kind of JWT that lets the user stay logged in after the access token expires, without forcing them to log in again.
+
+# Boiler Plate :-
+                 userSchema.methods.generateAccessToken = function () {
+                    return jwt.sign(
+                        {
+                        _id: this._id,
+                        email: this.email,
+                        username: this.username,
+                        }, 
+                        process.env.ACCESS_TOKEN_SECRET,
+                        {
+                        expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+                        }
+                    );
+                    };
+
+## Flow Of JWT :-
+
+- user log-in, If user valid, server generates jwt sends to client
+- client stores jwt in cookies or localstorage
+- after client login second time It creates new jwt token unless old token expires
+
+### Header : It use Hs256 algorithm and type jwt
+
+### Payload : It Contains data about user and issued and expired timestamp
+
+### Signature : It has Secret Key
