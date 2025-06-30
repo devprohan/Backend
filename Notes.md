@@ -301,5 +301,23 @@
             3. Then In app.js Import user router
             4. Then create router api (http://localhost:8000/api/v1/users/register) and give an controller name
             5. Then control goes to router file where we can add requests by using router.route("/register").post(registeruser)
-            6.Then control goes to register controller
+            6. Then control goes to registeruser controller
             7. To check response mil rha ya nh use postman or thunder client vs code extension on google
+
+## Steps Controller :-
+                      1. RegisterUser :-
+                      |Postman| :-
+                      - In Postmen Data send through Body
+                      - Where we can send data raw, formdata, urlencoded, binary, graphql form
+                      - In raw We send in json format
+                      |Error Resolve| :-
+                      - ApiError :- errors me jo fields required h vo dena 
+                      - Here We used .some method((field)=>field?.trim() === "") for ek sath all fields check krne ke liya empty hai ya nh
+                      - Import User model from model
+                      - Here we used $ (doler operator for or and)
+                      - By we use multer we have access to req.files
+                      - syntax: const avatarLocalPath = req.files?.avatar[0]?.path;
+                      - Import Cloudinary Into controllers
+                      - then uploadcloudinary me localfilepath ko upload krdo time lgta h to await lgake varible me save krdo
+                      - Structured response send krne ke liye use Apiresponse Utility
+                      

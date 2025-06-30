@@ -52,7 +52,7 @@ const userSchema = new Schema(
 // It is used To Encrypt Password into string
 userSchema.pre("save", async function (next) {
   if (!this.isModified("Password")) return next(); // Always check password is modified or not
-  this.password = bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
