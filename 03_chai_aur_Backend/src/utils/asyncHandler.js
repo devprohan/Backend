@@ -8,7 +8,7 @@ const asyncHandler = (requestHandler) => {
   };
 };
 
-export { asyncHandler };
+export default asyncHandler
 
 
 // const asynchandler = (func) => {() => {}} only braces remove It Is an Higher Order Function

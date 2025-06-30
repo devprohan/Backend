@@ -141,6 +141,7 @@
 7. bcryptjs
 8. jwt
 9. cloudinary
+10. Multer
 
 ## Express:-
 
@@ -249,7 +250,56 @@
 - In catch section : error ane pr bh file to bnti h isliye fs.unlink krne ka
 
 ## Multer :-
+
 - It is a middleware part
 - Use of multer is to parse files qki express me ye nh file parse nh hota
 
- 
+# HTTP Crash Course :-
+
+- Hyper text Transfer protocol
+- HTTP Headres:- Its a metadata (key-value) pairs sent along with req & res
+- Use with caching, Authentication, Manage states
+- Req Headers -> From Client, Res Headres -> From Server, Represn Header -> Encoding, Payload headers -> Data(id, email)
+
+### Most Comman Headers:-
+
+                        - Accept : which type of data accept json/applicaton
+                        - User Agent : postmen / which browser send req
+                        - Authorization : Bearer or jwt token
+                        - Content Type : img, pdf
+                        - Set-Cookie :Used by server to send cookies
+                        - Cache-Control : kitne der baad data expire krna h
+
+### Cors Headers :-
+
+                        - Origin :
+                        - credentials :
+                        - methods :
+
+# HTTP Methods :-
+
+- Basic Set Of Operations That Can Be Used To Interact With Server - Get : retrieve a resource - Head : No msg body (response headers only) - Options : What operations are avaliable - Trace : get some dat - Delete : remove a resource - Put : Replace a Resource - Post : Interact with resource (mostly add) - Patch : Change part of Resource
+
+# HTTP Status Code :-
+
+                        - 1xx - Informational
+                        - 2xx - Success
+                        - 3xx - redirection
+                        - 4xx - Client Error
+                        - 5xx - Server Error
+
+# API :-
+
+- Application Programming Interface
+
+# Router And Controller :-
+
+## Steps Router :-
+
+            1. In Router Folder We create an User.routes Router
+            2. Then import Router from express then create router and export
+            3. Then In app.js Import user router
+            4. Then create router api (http://localhost:8000/api/v1/users/register) and give an controller name
+            5. Then control goes to router file where we can add requests by using router.route("/register").post(registeruser)
+            6.Then control goes to register controller
+            7. To check response mil rha ya nh use postman or thunder client vs code extension on google
