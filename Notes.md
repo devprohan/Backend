@@ -130,51 +130,6 @@
 2. Check import .js is imp
 3. check code and export
 
-## Requirements:
-
-1. dotenv
-2. mongoose
-3. Express
-4. cookieparser
-5. Cors
-6. mongoose-aggregate-paginate-v2
-7. bcryptjs
-8. jwt
-9. cloudinary
-10. Multer
-
-## Express:-
-
-- req.params :- url se data lena h to
-- req.body :- frontend se data lena h to
-- req.cookies :- cookies se data lena h to
-
-## Middelwares:-
-
-- parse :- parse means convert data into useable structure
-- Middleware in Express.js is a function that has access to the request, response
-- In simple word its checking between request and response
-- app.use matlab middelware
-- Cookieparser :- is to make it easy to read and manage cookies in an Express.js
-- urlencoded :- It parse form data means it parse incoming request by post request
-- express.static :- It allows Express to serve those files directly as it is
-
-## app.js Folder :-
-
-- Isme humne express app create kiya hai aur use export kiya hai
-- and We add some middelwares inside it like cookieparsrer, cors, express static, urlencoded, json, etc
-
-## Index.js Folder :-
-
-- Isme humne DB Import krke connect kr rkha hai aur env file add krkr rkha he
-
-## Error Handeling :-
-
-- humne error handel krne ke liye utilities create kiya hai
-- asyncHandeler me handeler function ke errors handel honge
-- ApiHandeler me Api req ke errors handel honge
-- ApiResHandeler me Api res ke errors handel honge
-
 ## bcryptjs or bcrypt :-
 
 - Install bcrypt.js
@@ -223,6 +178,53 @@
 ### Payload : It Contains data about user and issued and expired timestamp
 
 ### Signature : It has Secret Key
+
+## Requirements:
+
+1. dotenv
+2. mongoose
+3. Express
+4. cookieparser
+5. Cors
+6. mongoose-aggregate-paginate-v2
+7. bcryptjs
+8. jwt
+9. cloudinary
+10. Multer
+
+## Express:-
+
+- req.params :- url se data lena h to
+- req.body :- frontend se data lena h to
+- req.cookies :- cookies se data lena h to
+
+## Middelwares:-
+
+- parse :- parse means convert data into useable structure
+- Middleware in Express.js is a function that has access to the request, response
+- In simple word its checking between request and response
+- app.use matlab middelware
+- Cookieparser :- is to make it easy to read and manage cookies in an Express.js
+- urlencoded :- It parse form data means it parse incoming request by post request
+- express.static :- It allows Express to serve those files directly as it is
+
+## app.js Folder :-
+
+- Isme humne express app create kiya hai aur use export kiya hai
+- and We add some middelwares inside it like cookieparsrer, cors, express static, urlencoded, json, etc
+- Humne Isme UserRoute import kiya h from routes file se
+- then uska middelware banake userRouter pe bhej diya h
+
+## Index.js Folder :-
+
+- Isme humne DB Import krke connect kr rkha hai aur env file add krkr rkha he
+
+## Error Handeling :-
+
+- humne error handel krne ke liye utilities create kiya hai
+- asyncHandeler me handeler function ke errors handel honge
+- ApiHandeler me Api req ke errors handel honge
+- ApiResHandeler me Api res ke errors handel honge
 
 # File Upload Or Handeling:-
 
@@ -276,9 +278,16 @@
                         - credentials :
                         - methods :
 
-# HTTP Methods :-
+# HTTP Methods :- - Basic Set Of Operations That Can Be Used To Interact With Server
 
-- Basic Set Of Operations That Can Be Used To Interact With Server - Get : retrieve a resource - Head : No msg body (response headers only) - Options : What operations are avaliable - Trace : get some dat - Delete : remove a resource - Put : Replace a Resource - Post : Interact with resource (mostly add) - Patch : Change part of Resource
+- Get : retrieve a resource
+- Head : No msg body (response headers only)
+- Options : What operations are avaliable
+- Trace : get some data
+- Delete : remove a resource
+- Put : Replace a Resource
+- Post : Interact with resource (mostly add)
+- Patch : Change part of Resource
 
 # HTTP Status Code :-
 
@@ -305,13 +314,14 @@
             7. To check response mil rha ya nh use postman or thunder client vs code extension on google
 
 ## Steps Controller :-
+
                       1. RegisterUser :-
                       |Postman| :-
                       - In Postmen Data send through Body
                       - Where we can send data raw, formdata, urlencoded, binary, graphql form
                       - In raw We send in json format
                       |Error Resolve| :-
-                      - ApiError :- errors me jo fields required h vo dena 
+                      - ApiError :- errors me jo fields required h vo dena
                       - Here We used .some method((field)=>field?.trim() === "") for ek sath all fields check krne ke liya empty hai ya nh
                       - Import User model from model
                       - Here we used $ (doler operator for or and)
@@ -320,4 +330,6 @@
                       - Import Cloudinary Into controllers
                       - then uploadcloudinary me localfilepath ko upload krdo time lgta h to await lgake varible me save krdo
                       - Structured response send krne ke liye use Apiresponse Utility
-                      
+
+## Postman :-
+- here we send data in form data inside that personal info and files send

@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 // Create app
 const app = express();
 
-// Express Middelware
+// Express Middelwares
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN, // Allow only this frontend origin
