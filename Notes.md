@@ -366,6 +366,16 @@
                        - Sahi hai to req.user me daal do
                        - Warna error throw karo
 
-## LogoutUser :-
 
-                    -
+## RefreshAccessToken :-   
+                       - Yeh function ka kaam hai Access Token ko refresh karna — jab purana access token expire ho jata hai, to user ko new token dena hota hai, lekin Refresh Token ke through verify karke.          
+
+                       1. 👉 Refresh token ko cookies ya req.body se uthaya ja raha hai.
+                       2. 👉 Agar token hi nahi mila, to direct 401 Unauthorized error throw kar diya.
+                       3. 👉 Ab JWT ka verify() method use karke ye check karte hain ki token sahi hai ya nahi, aur agar sahi hai to decodedToken me se user._id nikalte hain.
+                       4. 👉 Agar user ID ke through koi user nahi mila to again 401 error
+                       5. 👉 Check krna hai db me rkha refreshToken With clients se aya icoming refresh token
+                       6. 👉 Naya Access + Refresh Token banao using generateAccessAndRefreshToken finction
+                       7. 👉 Cookies me store + Response bhejo
+
+ 

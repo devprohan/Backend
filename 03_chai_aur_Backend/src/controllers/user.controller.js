@@ -3,7 +3,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { verifyjwt } from "../middlewares/auth.middelware.js"
+import { verifyjwt } from "../middlewares/auth.middelware.js";
+import jwt from "jsonwebtoken";
 
 // Generate Access And Refresh Token:
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -12,6 +13,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
 
+    // refresh token save in database
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
@@ -24,7 +26,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
   }
 };
 
-/* register
+/* Register
 ## Algorithm :-
 1. Get user details from frontend req.body postmen
 2. validation user data - not empty
@@ -159,6 +161,7 @@ const loginUser = asyncHandeler(async (req, res) => {
     secure: true,
   };
 
+  // here we send accessToken and RefreshToken In Response via Cookies
   return res
     .status(200)
     .cookie("accessToken", accessToken, options)
@@ -180,8 +183,11 @@ const loginUser = asyncHandeler(async (req, res) => {
 ## Algorithm :-
 purpose: - Jab koi user logout karta hai, to hum uska refresh token database se hata dete hai.
         - Isse future me wo refresh token use karke new access token nahi bana sakta.
-1. Refresh Token ko Db Se Gayb Krna hai
-2. clear access token and refresh token from user cookies
+
+        1. hame req.user chahiye so uske liye verify krna padega so we create auth middelware
+        2. hame req.user me login user ka reference mil gya he
+        3. hame abhi login user ke db se refreshtoken undefined krna he
+        4. aur accesstoken and refreshtoken cookies ko clear krna he
 */
 
 const logoutUser = asyncHandeler(async (req, res) => {
@@ -212,4 +218,70 @@ const logoutUser = asyncHandeler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User LoggedOut Succesfully !!"));
 });
 
-export { registerUser, loginUser, logoutUser };
+// PURPOSE :- Access Token Ko Refresh Karana Hai using refreshToken
+/* ## ALgorithm :-
+                  1. get refresh token from req.cookie or req.body
+                  2. validate nh he to error
+                  3. in trycatch verify token is correct or not if not err
+                  4. then check in db
+                  5. compare tokens if not match throw err
+                  6. create token using genarterefacctoken function
+                  7. create cookie options
+                  8. send response with token in setcookies       
+*/
+
+const refreshAccessToken = asyncHandeler(async (req, res) => {
+  // get refresh token from cookies ya body se
+  const incomingRefreshToken = req.cookie.refreshToken || req.body.refreshToken;
+
+  // incomingRefreshToken nh hai to throw error
+  if (!incomingRefreshToken) {
+    throw new ApiError(401, "Unauthorized Request");
+  }
+
+  try {
+    // JWT verify se token ko decode karte hain
+    const decodedToken = jwt.verify(
+      incomingRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    // User DB me check karte hain
+    const user = await User.findById(decodedToken?._id);
+
+    if (!user) {
+      throw new ApiError(401, "Inavlid Refresh Token");
+    }
+
+    // Token match hota hai ya nahi user se aya token aur db me rkha token
+    if (incomingRefreshToken !== user?.refreshToken) {
+      throw new ApiError(401, "Refresh Token is Expired or Used");
+    }
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
+    // New access + refresh token generate karte hain
+    const { accessToken, newRefreshToken } =
+      await generateAccessAndRefreshTokens(user._id);
+
+    // Cookies me set karte hain aur response bhejte hain
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("newRefreshToken", newRefreshToken, options)
+      .json(
+        new ApiResponse(
+          200,
+          { accessToken, refreshToken: newRefreshToken },
+          "Access Token Refreshed"
+        )
+      );
+  } catch (error) {
+    throw new ApiError(401, error?.message || "Invalid refresh token");
+  }
+});
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken };
