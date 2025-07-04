@@ -313,9 +313,10 @@
             6. Then control goes to registeruser controller
             7. To check response mil rha ya nh use postman or thunder client vs code extension on google
 
-## Steps Controller :-
+# Steps Controller :-
 
-                      1. RegisterUser :-
+## RegisterUser :-
+
                       |Postman| :-
                       - In Postmen Data send through Body
                       - Where we can send data raw, formdata, urlencoded, binary, graphql form
@@ -331,5 +332,40 @@
                       - then uploadcloudinary me localfilepath ko upload krdo time lgta h to await lgake varible me save krdo
                       - Structured response send krne ke liye use Apiresponse Utility
 
-## Postman :-
-- here we send data in form data inside that personal info and files send
+## LoginUser :-
+
+                      - get data from user using req.body
+                      - validate it and throw err
+                      - check if alredy exist in db if not throw err
+                      - compare password with existed password
+                      - we alredy create bcrypt so import user.ispasscorect
+                      - generate acces and refresh token upr krna good pract
+                      - for this cereate function generateacces&refTokens
+                      - in this func time lgta h to async await lene ka
+                      - here we use userid to find user which create in db
+                      - then in try catch block we save acces and refr token
+                      - give paranthesis because its func in user model
+                      - then refresh token ko user db me save krna using user.reftok = reftok; then second line user.save()
+                      - ref tok save because login das baar na krna pde
+                      - save ke andr validatebefsave false krna because password ya or chize save na ho time lgta to await
+                      - Then acces,refresh token return krdo
+                      - then loginuser me genacc&reftok call krke user._id dedo
+                      - await lagake use destructure krdo like req.body
+                      - Then sanitize data
+                      - Then design Cookies Options: where httpOnly: true and secure: true then ye cookies only server se modified hongi dont modify by fronend
+                      - then return response
+                      - In this response we gave status code, cookies in that we gave accesstoken refreshtoken name with options and lastly apireponse
+                      - in apiresponse we handel localstorage condition if user wants to save tokens in localstorage
+
+## Auth middelware :-
+
+                   ✅ Summary:
+                       - Token uthao (cookie ya header se)
+                       - Verify karo valid hai ya nahi
+                       - User DB me exist karta hai ya nahi check karo
+                       - Sahi hai to req.user me daal do
+                       - Warna error throw karo
+
+## LogoutUser :-
+
+                    -

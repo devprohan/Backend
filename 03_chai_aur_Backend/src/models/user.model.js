@@ -51,11 +51,10 @@ const userSchema = new Schema(
 
 // It is used To Encrypt Password into string Here Pre Is A Mongoose Middelwares
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next(); // ✅ Corrected
+  if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
-
 
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
